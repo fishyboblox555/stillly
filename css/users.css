@@ -212,43 +212,7 @@ body {
     display: none;
   }
 
-/* .container .profileLayout .profileBadges .profileBadge:hover::before {
-    opacity: .8;
-}
 
-.container .profileLayout .profileBadges .profileBadge.dev:hover::before {
-    content: 'Developer';
-}
-.container .profileLayout .profileBadges .profileBadge.staff:hover::before {
-    content: 'Staff';
-}
-.container .profileLayout .profileBadges .profileBadge.certif:hover::before {
-    content: 'Certified';
-}
-.container .profileLayout .profileBadges .profileBadge.premium:hover::before {
-    content: 'Premium';
-}
-.container .profileLayout .profileBadges .profileBadge.bughunter:hover::before {
-    content: 'Bug Hunter';
-}
-.container .profileLayout .profileBadges .profileBadge.earlysupporter:hover::before {
-    content: 'Early Supporter';
-}
-.container .profileLayout .profileBadges .profileBadge.booster:hover::before {
-    content: 'Server Booster';
-}
-.container .profileLayout .profileBadges .profileBadge.graphic:hover::before {
-    content: 'Graphic Designer';
-}
-.container .profileLayout .profileBadges .profileBadge.imagehost:hover::before {
-    content: 'Image Host';
-}
-.container .profileLayout .profileBadges .profileBadge.sweet:hover::before {
-    content: 'Candy';
-}
-.container .profileLayout .profileBadges .profileBadge.patrick:hover::before {
-    content: 'St. Patrick';
-} */
 
 .container .profileLayout .profileBio {
     font-weight: 570;
