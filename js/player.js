@@ -9,21 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentTime = document.querySelector('.current-time');
     const totalTime = document.querySelector('.total-time');
 
-    // Função para formatar tempo
+    // Function to format time
     function formatTime(time) {
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     }
 
-    // Variável para controlar o primeiro clique
+    // Variable to control first click
     let firstClickHappened = false;
 
-    // Função para reprodução automática com delay
+    // Function for autoplay with delay
     function autoPlayWithDelay() {
         if (!firstClickHappened) return;
         
-        // Delay de 2 segundos após o primeiro clique
+        // Delay of 2 seconds after first click
         setTimeout(() => {
             audio.play();
             playIcon.style.display = 'none';
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     }
 
-    // Adiciona evento de clique no site para habilitar o autoplay
+    // Add click event on site to enable autoplay
     document.addEventListener('click', () => {
         if (!firstClickHappened) {
             firstClickHappened = true;
@@ -39,28 +39,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Função para pular para frente ou para trás
+    // Function to skip forward or backward
     function skipTime(direction) {
-        const skipAmount = 5; // 5 segundos
+        const skipAmount = 5; // 5 seconds
         if (direction === 'forward') {
-            // Pula para frente, mas não passa do final da música
+            // Skip forward, but don't go past end of song
             audio.currentTime = Math.min(audio.currentTime + skipAmount, audio.duration);
         } else {
-            // Pula para trás, mas não vai antes do início da música
+            // Skip backward, but don't go before song beginning
             audio.currentTime = Math.max(audio.currentTime - skipAmount, 0);
         }
     }
 
-    // Adiciona eventos de pulo para prev e next
+    // Add skip events to prev and next
     prevButton.addEventListener('click', () => skipTime('backward'));
     nextButton.addEventListener('click', () => skipTime('forward'));
 
-    // Carrega metadados
+    // Load metadata
     audio.addEventListener('loadedmetadata', () => {
         totalTime.textContent = formatTime(audio.duration);
     });
 
-    // Função de alternância entre play/pause
+    // Play/pause toggle function
     function togglePlayPause() {
         if (audio.paused) {
             audio.play();
@@ -108,13 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.currentTime = pos * audio.duration;
     }
 
-    // Adiciona evento de clique ao elemento invisível maior
+    // Add click event to larger invisible element
     clickableArea.addEventListener('click', handleTimelineClick);
     
-    // Mantém o evento de clique na timeline original para compatibilidade
+    // Keep click event on original timeline for compatibility
     timeline.addEventListener('click', handleTimelineClick);
 
-    // Resetar ao terminar
+    // Reset when done
     audio.addEventListener('ended', () => {
         playIcon.style.display = 'block';
         pauseIcon.style.display = 'none';
@@ -125,13 +125,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const audioPlayer = document.querySelector('.audioPlayer');
     const volumeSlider = document.querySelector('.volume-slider');
     const volumeIcon = document.querySelector('.volume-icon');
-    let lastVolume = 0.04; // Volume inicial definido para 50%
+    let lastVolume = 0.04; // Initial volume set to 50%
 
-    // Definir volume inicial
+    // Set initial volume
     audioPlayer.volume = lastVolume;
     volumeSlider.value = lastVolume;
 
-    // Atualizar ícone de volume inicial
+    // Update initial volume icon
     volumeIcon.innerHTML = `<path fill="currentColor" d="M7 9v6h4l5 5V4l-5 5z"></path>`;
 
     volumeSlider.addEventListener('input', () => {
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         audioPlayer.volume = volume;
         lastVolume = volume;
 
-        // Atualizar ícone de volume
+        // Update volume icon
         if (volume == 0) {
             volumeIcon.innerHTML = `<path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63m2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71M4.27 3L3 4.27L7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21L21 19.73l-9-9zM12 4L9.91 6.09L12 8.18z"></path>`;
         } else if (volume < 0.1) {
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Ícone de volume clicável para mute/unmute
+    // Clickable volume icon for mute/unmute
     volumeIcon.addEventListener('click', () => {
         if (audioPlayer.volume > 0) {
             lastVolume = audioPlayer.volume;
@@ -157,10 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
             volumeSlider.value = 0;
             volumeIcon.innerHTML = `<path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63m2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71M4.27 3L3 4.27L7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21L21 19.73l-9-9zM12 4L9.91 6.09L12 8.18z"></path>`;
         } else {
-            audioPlayer.volume = lastVolume || 0.2; // Voltar para o último volume ou 50%
+            audioPlayer.volume = lastVolume || 0.2; // Return to last volume or 50%
             volumeSlider.value = lastVolume || 0.2;
             
-            // Restaurar ícone baseado no volume
+            // Restore icon based on volume
             if (lastVolume < 0.2) {
                 volumeIcon.innerHTML = `<path fill="currentColor" d="M7 9v6h4l5 5V4l-5 5z"></path>`;
             } else {

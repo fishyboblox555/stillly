@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Selecionamos todos os badges
+    // Select all badges
     const badges = document.querySelectorAll('.profileBadge');
     
-    // Para cada badge, adicionamos os eventos de mouse
+    // For each badge, add mouse events
     badges.forEach(badge => {
-      // Criamos um elemento tooltip personalizado
+      // Create a custom tooltip element
       const tooltip = document.createElement('div');
       tooltip.className = 'badge-tooltip';
       
-      // Determinamos o texto baseado na classe do badge
+      // Determine tooltip text based on badge class
       let tooltipText = '';
       if (badge.classList.contains('dev')) tooltipText = 'Developer';
       else if (badge.classList.contains('staff')) tooltipText = 'Staff';
@@ -26,70 +26,70 @@ document.addEventListener('DOMContentLoaded', function() {
       tooltip.textContent = tooltipText;
       document.body.appendChild(tooltip);
       
-      // Posicionamento e animação do tooltip no mouseover
+      // Tooltip positioning and animation on mouseover
       badge.addEventListener('mouseenter', function(e) {
         const badgeRect = badge.getBoundingClientRect();
         tooltip.style.visibility = 'visible';
         tooltip.style.opacity = '0';
         tooltip.style.transform = 'translate(-50%, 10px) scale(0.8)';
         
-        // Posicionamos o tooltip acima do badge
+        // Position tooltip above badge
         tooltip.style.left = `${badgeRect.left + badgeRect.width/2}px`;
         tooltip.style.top = `${badgeRect.top - 10}px`;
         
-        // Aplicamos a animação
+        // Apply animation
         requestAnimationFrame(() => {
           tooltip.style.opacity = '0.9';
           tooltip.style.transform = 'translate(-50%, -30px) scale(1)';
         });
       });
       
-      // Ocultar e animar a saída do tooltip
+      // Hide and animate tooltip exit
       badge.addEventListener('mouseleave', function() {
         tooltip.style.opacity = '0';
         tooltip.style.transform = 'translate(-50%, 10px) scale(0.8)';
         
-        // Ocultamos completamente após a animação terminar
+        // Completely hide after animation completes
         setTimeout(() => {
           tooltip.style.visibility = 'hidden';
         }, 300);
       });
     });
     
-    // Implementação para discordUserBadge com data-tooltip
+    // Implementation for discordUserBadge with data-tooltip
     const discordBadges = document.querySelectorAll('.discordUserBadge[data-tooltip]');
     
     discordBadges.forEach(badge => {
-      // Criamos um elemento tooltip personalizado
+      // Create a custom tooltip element
       const tooltip = document.createElement('div');
       tooltip.className = 'badge-tooltip discord-tooltip';
       tooltip.textContent = badge.getAttribute('data-tooltip');
       document.body.appendChild(tooltip);
       
-      // Posicionamento e animação do tooltip no mouseover
+      // Tooltip positioning and animation on mouseover
       badge.addEventListener('mouseenter', function(e) {
         const badgeRect = badge.getBoundingClientRect();
         tooltip.style.visibility = 'visible';
         tooltip.style.opacity = '0';
         tooltip.style.transform = 'translate(-50%, 10px) scale(0.8)';
         
-        // Posicionamos o tooltip acima do badge
+        // Position tooltip above badge
         tooltip.style.left = `${badgeRect.left + badgeRect.width/2}px`;
         tooltip.style.top = `${badgeRect.top - 7}px`;
         
-        // Aplicamos a animação
+        // Apply animation
         requestAnimationFrame(() => {
           tooltip.style.opacity = '0.9';
           tooltip.style.transform = 'translate(-50%, -30px) scale(1)';
         });
       });
       
-      // Ocultar e animar a saída do tooltip
+      // Hide and animate tooltip exit
       badge.addEventListener('mouseleave', function() {
         tooltip.style.opacity = '0';
         tooltip.style.transform = 'translate(-50%, 10px) scale(0.8)';
         
-        // Ocultamos completamente após a animação terminar
+        // Completely hide after animation completes
         setTimeout(() => {
           tooltip.style.visibility = 'hidden';
         }, 300);

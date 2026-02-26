@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Elementos a serem animados
+    // Elements to be animated
     const container = document.querySelector('.container');
     const musicContainer = document.querySelector('.music-container');
 
-    // Array de elementos para animação 3D
+    // Array of elements for 3D animation
     const animatedElements = [container, musicContainer];
 
     // Definir os keyframes no JavaScript
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.head.appendChild(styleSheet);
 
-    // Configurações iniciais para cada elemento
+    // Initial settings for each element
     animatedElements.forEach(element => {
         if (element) {
             element.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
@@ -40,47 +40,47 @@ document.addEventListener('DOMContentLoaded', () => {
             element.style.willChange = 'transform';
             element.style.backfaceVisibility = 'hidden';
             element.style.transformStyle = 'preserve-3d';
-            element.style.opacity = '0'; // Inicialmente invisível
+            element.style.opacity = '0'; // Initially invisible
         }
     });
 
-    // Variáveis para animação 3D
+    // Variables for 3D animation
     let currentX = 0;
     let currentY = 0;
     let targetX = 0;
     let targetY = 0;
     let rafId = null;
     
-    // Variáveis para controlar o estado da animação
+    // Variables to control animation state
     let containerYOffset = 0;
     let targetYOffset = 0;
     let currentYOffset = 0;
 
     function animateTransform() {
-        // Interpolação suave entre posição atual e alvo
+        // Smooth interpolation between current and target position
         currentX += (targetX - currentX) * 0.1;
         currentY += (targetY - currentY) * 0.1;
-        currentYOffset += (targetYOffset - currentYOffset) * 0.05; // Suavizar movimento vertical
+        currentYOffset += (targetYOffset - currentYOffset) * 0.05; // Smooth vertical movement
         
-        // Aplicar transformação com base no estado atual
+        // Apply transformation based on current state
         if (container) {
-            // Combinar a animação de deslocamento vertical com a de rotação 3D
+            // Combine vertical offset animation with 3D rotation
             container.style.transform = `perspective(1000px) translateY(${currentYOffset}px) rotateX(${currentY}deg) rotateY(${currentX}deg)`;
         }
         
-        // Para o music container, aplicar apenas a rotação 3D
+        // For music container, apply only 3D rotation
         if (musicContainer && musicContainer.style.opacity === '1') {
             musicContainer.style.transform = `perspective(1000px) rotateX(${currentY}deg) rotateY(${currentX}deg)`;
         }
         
-        // Continuar a animação sempre
+        // Continue animation always
         rafId = requestAnimationFrame(animateTransform);
     }
 
-    // Iniciar a animação imediatamente
+    // Start animation immediately
     rafId = requestAnimationFrame(animateTransform);
 
-    // Função para adicionar evento de movimento em um elemento
+    // Function to add mouse movement event to an element
     function addMouseMoveEvent(element) {
         if (element) {
             element.addEventListener('mousemove', (e) => {
@@ -93,34 +93,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 const offsetY = (y - centerY) / centerY;
                 const intensity = 9;
                 
-                // Atualizar os valores alvo
+                // Update target values
                 targetX = offsetX * intensity;
                 targetY = offsetY * intensity;
                 
-                // Prevenindo propagação do evento
+                // Prevent event propagation
                 e.stopPropagation();
             });
         }
     }
 
-    // Adicionar eventos de movimento para cada elemento
+    // Add movement events for each element
     animatedElements.forEach(addMouseMoveEvent);
 
-    // Função para adicionar evento de saída do mouse
+    // Function to add mouse leave event
     function addMouseLeaveEvent(element) {
         if (element) {
             element.addEventListener('mouseleave', () => {
-                // Retornar à rotação inicial
+                // Return to initial rotation
                 targetX = 0;
                 targetY = 0;
             });
         }
     }
 
-    // Adicionar eventos de saída do mouse para cada elemento
+    // Add mouse leave events for each element
     animatedElements.forEach(addMouseLeaveEvent);
 
-    // Adicionar eventos de entrada do mouse para prevenir propagação
+    // Add mouse enter events to prevent propagation
     animatedElements.forEach(element => {
         if (element) {
             element.addEventListener('mouseenter', (e) => {
@@ -129,45 +129,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Iniciar sequência de animações no clique
+    // Start animation sequence on click
     document.body.addEventListener('click', () => {
-        // Fade in do container principal
+        // Fade in of main container
         if (container) {
             container.style.animation = 'fadeIn 0.8s forwards';
             
-            // Quando a animação fadeIn terminar
+            // When fadeIn animation finishes
             container.addEventListener('animationend', (e) => {
                 if (e.animationName === 'fadeIn') {
-                    // Remover a animação para não interferir com a transformação 3D
+                    // Remove animation to not interfere with 3D transformation
                     container.style.animation = '';
                     container.style.opacity = '1';
                 }
             }, { once: true });
         }
 
-        // Adicionar um atraso para o fadeIn do music player e moveUp do container
+        // Add delay for music player fadeIn and container moveUp
         setTimeout(() => {
-            // Fade in do music container
+            // Fade in of music container
             if (musicContainer) {
                 musicContainer.style.animation = 'fadeIn 0.8s forwards';
                 
-                // Quando a animação fadeIn terminar
+                // When fadeIn animation finishes
                 musicContainer.addEventListener('animationend', (e) => {
                     if (e.animationName === 'fadeIn') {
-                        // Remover a animação para não interferir com a transformação 3D
+                        // Remove animation to not interfere with 3D transformation
                         musicContainer.style.animation = '';
                         musicContainer.style.opacity = '1';
                     }
                 }, { once: true });
             }
             
-            // Move up do container principal - agora usando nossa variável targetYOffset
+            // Move up of main container - now using our targetYOffset variable
             if (container) {
-                // Definir o deslocamento alvo para -60px
+                // Set target offset to -60px
                 targetYOffset = -60;
                 
-                // Não precisamos mais da animação CSS para moveUp,
-                // pois agora controlamos o movimento através da animação JS
+                // We no longer need CSS animation for moveUp,
+                // as we now control movement through JS animation
             }
         }, 2480);
     }, { once: true });

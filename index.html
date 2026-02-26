@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
     body {
         cursor: url(img/extralsmall.png);
     }
-    /* Animação básica */
+    /* Basic animation */
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -37,13 +37,13 @@
       opacity: 0;
     }
     
-    /* Classes de delay */
+    /* Delay classes */
     .delay-1 { animation-delay: 0.1s; }
     .delay-2 { animation-delay: 0.2s; }
     .delay-3 { animation-delay: 0.3s; }
-    /* ... outras classes de delay ... */
+    /* ... other delay classes ... */
     
-    /* Agrupe elementos para animação em seções */
+    /* Group elements for section animation */
     .animation-group {
       margin-bottom: 40px;
     }
@@ -52,7 +52,7 @@
     cursor: url('Aero.cur'), auto !important;
 }
 
-/* Para botões e links, você pode adicionar uma regra específica */
+/* For buttons and links, you can add a specific rule */
 a, button, .linkedAccountsRedirect svg, .popup-button {
     cursor: url('Aero.cur'), pointer !important;
 }
@@ -77,15 +77,15 @@ a, button, .linkedAccountsRedirect svg, .popup-button {
 <div id="background-layer-1" class="background-layer"></div> -->
 
 <body profile="" style="font-family: Satoshi, sans-serif; cursor: url('img/extralsmall.png'), auto; background-color: #222222;">
-    <!-- Este código deve ser adicionado ao seu HTML existente -->
+    <!-- This code should be added to your existing HTML -->
     <div class="popup-overlay" id="redirect-popup">
         <div class="popup-container">
             <p class="popup-message" id="popup-message">
-                Você será redirecionado para Discord. Deseja continuar?
+                You will be redirected to Discord. Do you want to continue?
             </p>
             <div class="popup-buttons">
-                <button class="popup-button popup-button-confirm" id="popup-confirm">Continuar</button>
-                <button class="popup-button popup-button-cancel" id="popup-cancel">Cancelar</button>
+                <button class="popup-button popup-button-confirm" id="popup-confirm">Continue</button>
+                <button class="popup-button popup-button-cancel" id="popup-cancel">Cancel</button>
             </div>
         </div>
     </div>
@@ -97,7 +97,7 @@ a, button, .linkedAccountsRedirect svg, .popup-button {
         </video>
     </div>
     
-    <!-- Novo controle de volume -->
+    <!-- New volume control -->
     <div style class="volume-control">
         <svg class="volume-icon" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24" style="opacity: 0.7;">
             <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77"></path>
@@ -113,7 +113,7 @@ a, button, .linkedAccountsRedirect svg, .popup-button {
 
         <div class="profileLayout">
             <div class="elemento-para-animar delay-10">
-            <h1 class="profileUsername" style="color: #ffffff; text-shadow: 0 0 20px #ffffff;">B<span>ia</span></h1></div>
+            <h1 class="profileUsername" style="color: #ffffff; text-shadow: 0 0 20px #ffffff;">S<span>tillly</span></h1></div>
 
             <div class="elemento-para-animar delay-15">
             <div class="profileBadges">
@@ -209,14 +209,14 @@ a, button, .linkedAccountsRedirect svg, .popup-button {
             <div class="presenceContainer">
                 <div class="discordInfos">
                     <div class="discordAvatar">
-                        <img class="avatarImage" src="https://images-ext-1.discordapp.net/external/g4fMyo9rfTLl-mA5Nx_9fImvqfi-tvgDf-bu6KTywBA/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/874517110678765618/8da376bc1c2a0b4b316c590e326a9491.png?format=webp&quality=lossless"
+                        <img class="avatarImage" src="https://images-ext-1.discordapp.net/external/g4fMyo9rfTLl-mA5Nx_9fImvqfi-tvgDf-bu6KTywBA/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/1224512361793327117/a/avatar.png?format=webp&quality=lossless"
                             alt="Discord Avatar">
                         <img class="discordStatus" src="img/idle.png" alt="idle">
                     </div>
                     <div class="discordActivity">
                         <div class="discordUser">
                             <div class="discordUserDiv">
-                                <span>stillly</span>
+                                <span>_stillly_</span>
                                 <div class="discordUserBadges">
                                     <div class="discordUserBadge" data-tooltip="Completed a Mission">
                                         <img src="img/mission.png" alt="Discord Badge">
@@ -346,29 +346,29 @@ a, button, .linkedAccountsRedirect svg, .popup-button {
 
     <script src="js/cur-snow.js"></script>
     <script>
-// Código do container com animações otimizadas
+// Container code with optimized animations
 const container = document.getElementById('container');
 
-// Configurações iniciais com propriedades otimizadas
+// Initial settings with optimized properties
 container.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
 container.style.zIndex = '1';
 container.style.position = 'relative';
-// Adicionar will-change para informar ao navegador sobre transformações futuras
+// Add will-change to inform browser about future transformations
 container.style.willChange = 'transform';
-// Aplicar aceleração de hardware
+// Apply hardware acceleration
 container.style.backfaceVisibility = 'hidden';
 container.style.transformStyle = 'preserve-3d';
 
-// Variáveis para animação suave
+// Variables for smooth animation
 let currentX = 0;
 let currentY = 0;
 let targetX = 0;
 let targetY = 0;
 let rafId = null;
 
-// Função de animação com requestAnimationFrame
+// Animation function with requestAnimationFrame
 function animateTransform() {
-    // Interpolação suave entre posição atual e alvo (easing)
+    // Smooth interpolation between current and target position (easing)
     currentX += (targetX - currentX) * 0.1;
     currentY += (targetY - currentY) * 0.1;
     
@@ -379,7 +379,7 @@ function animateTransform() {
         rotateY(${currentX}deg)
     `;
     
-    // Continuar a animação apenas se houver movimento significativo
+    // Continue animation only if there is significant movement
     if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
         rafId = requestAnimationFrame(animateTransform);
     } else {
@@ -387,7 +387,7 @@ function animateTransform() {
     }
 }
 
-// Efeito de movimento do mouse dentro do container
+// Mouse movement effect inside container
 container.addEventListener('mousemove', (e) => {
     const rect = container.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -402,28 +402,28 @@ container.addEventListener('mousemove', (e) => {
     targetX = offsetX * intensity;
     targetY = offsetY * intensity;
     
-    // Iniciar animação se não estiver rodando
+    // Start animation if not running
     if (!rafId) {
         rafId = requestAnimationFrame(animateTransform);
     }
     
-    // Prevenindo propagação do evento
+    // Prevent event propagation
     e.stopPropagation();
 });
 
-// Quando o mouse sai do container
+// When mouse leaves container
 container.addEventListener('mouseleave', () => {
-    // Definir alvo como posição inicial
+    // Set target to initial position
     targetX = 0;
     targetY = 0;
     
-    // Iniciar animação de retorno se não estiver rodando
+    // Start return animation if not running
     if (!rafId) {
         rafId = requestAnimationFrame(animateTransform);
     }
 });
 
-// Adicionando evento para prevenir a criação de sparkles dentro do container
+// Add event to prevent sparkle creation inside container
 container.addEventListener('mouseenter', (e) => {
     e.stopPropagation();
 });
@@ -447,25 +447,25 @@ container.addEventListener('mouseenter', (e) => {
                 currentPlatform = this.getAttribute('data-type');
                 
                 // Configurar a mensagem do popup
-                popupMessage.textContent = `Você será redirecionado para ${currentPlatform}. Deseja continuar?`;
+                popupMessage.textContent = `You will be redirected to ${currentPlatform}. Do you want to continue?`;
                 
                 // Mostrar o popup
                 popup.classList.add('active');
             });
         });
         
-        // Botão Cancelar
+        // Cancel button
         popupCancel.addEventListener('click', function() {
             popup.classList.remove('active');
         });
         
-        // Botão Confirmar
+        // Confirm button
         popupConfirm.addEventListener('click', function() {
             window.open(currentLink, '_blank');
             popup.classList.remove('active');
         });
         
-        // Fechar o popup ao clicar fora dele
+        // Close popup when clicking outside
         popup.addEventListener('click', function(e) {
             if (e.target === popup) {
                 popup.classList.remove('active');
@@ -484,24 +484,24 @@ container.addEventListener('mouseenter', (e) => {
     }, 10000);
   </script>
   <script>
-    // Script isolado para o áudio de chuva em background
+    // Isolated script for background rain audio
 document.addEventListener('DOMContentLoaded', function() {
-    // Seleciona especificamente o áudio de chuva, não o player de música
+    // Selects specifically the rain audio, not the music player
     const rainAudio = document.querySelector('audio[src="img/praiafake.mp3"]');
     
     if (!rainAudio) {
-        console.error('Elemento de áudio da chuva não encontrado');
+        console.error('Rain audio element not found');
         return;
     }
     
-    // Configurar o áudio de chuva
+    // Configure rain audio
     rainAudio.loop = true;
-    rainAudio.volume = 0.05; // Volume baixo para som ambiente
+    rainAudio.volume = 0.05; // Low volume for ambient sound
     
-    // Variável para controlar se já tentamos iniciar o áudio
+    // Variable to control if we've already attempted to start audio
     let audioStartAttempted = false;
     
-    // Função para tentar iniciar o áudio da chuva
+    // Function to attempt to start rain audio
     function tryPlayRainAudio() {
         if (audioStartAttempted) return;
         audioStartAttempted = true;
@@ -510,21 +510,21 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (playPromise !== undefined) {
             playPromise.catch(error => {
-                console.log('Autoplay do áudio de chuva bloqueado. Aguardando interação:', error);
+                console.log('Rain audio autoplay blocked. Waiting for interaction:', error);
                 
-                // Criar uma função de evento única para iniciar o áudio
+                // Create a single event function to start audio
                 const startRainAudio = function() {
                     rainAudio.play().catch(err => {
-                        console.log('Ainda não foi possível iniciar o áudio de chuva:', err);
+                        console.log('Could not start rain audio yet:', err);
                     });
                     
-                    // Remover os listeners após a primeira tentativa
+                    // Remove listeners after first attempt
                     document.removeEventListener('click', startRainAudio);
                     document.removeEventListener('touchstart', startRainAudio);
                     document.removeEventListener('keydown', startRainAudio);
                 };
                 
-                // Adicionar eventos para diferentes tipos de interação
+                // Add events for different interaction types
                 document.addEventListener('click', startRainAudio, { once: true });
                 document.addEventListener('touchstart', startRainAudio, { once: true });
                 document.addEventListener('keydown', startRainAudio, { once: true });
@@ -532,10 +532,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Tentar iniciar o áudio imediatamente
+    // Try to start audio immediately
     tryPlayRainAudio();
     
-    // Backup: tentar novamente após 1 segundo
+    // Backup: try again after 1 second
     setTimeout(tryPlayRainAudio, 1000);
 });
   </script>

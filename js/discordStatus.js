@@ -1,69 +1,69 @@
-function atualizarPerfilDiscord(userId) {
-    // Se nenhum userId for especificado, usar o ID da Bia por padrão
+function updateDiscordProfile(userId) {
+    // If no userId is specified, use Stillly's ID by default
     const targetUserId = userId || '1224512361793327117';
     
-    // URL atualizada para apontar para o endpoint específico do usuário
+    // Updated URL to point to the specific user endpoint
     fetch(`https://discorduserstatus-2-0.onrender.com/status/${targetUserId}`)
     .then(response => response.json())
     .then(data => {
-        // Atualizar a foto do perfil (se disponível)
+        // Update profile picture (if available)
         const avatarImg = document.querySelector('.avatarImage');
         if (avatarImg && data.avatarUrl) {
             avatarImg.src = data.avatarUrl;
-            console.log(`Avatar do usuário ${targetUserId} atualizado:`, data.avatarUrl);
+            console.log(`Avatar for user ${targetUserId} updated:`, data.avatarUrl);
         }
         
-        // Atualizar o status
+        // Update status
         const statusImg = document.querySelector('.discordStatus');
         if (statusImg) {
-            // Usar o caminho correto da imagem baseado no status
+            // Use the correct image path based on status
             switch(data.status) {
                 case 'online': statusImg.src = '/img/online.png'; break;
                 case 'idle': statusImg.src = '/img/idle.png'; break;
                 case 'dnd': statusImg.src = '/img/dnd.png'; break;
                 default: statusImg.src = '/img/offline.png';
             }
-            console.log(`Status do usuário ${targetUserId} atualizado para:`, data.status);
+            console.log(`User ${targetUserId} status updated to:`, data.status);
         } else {
-            console.error('Elemento .discordStatus não encontrado no DOM');
+            console.error('Element .discordStatus not found in DOM');
         }
         
-        // Se você quiser mostrar o nome de usuário também
+        // If you want to show the username as well
         const usernameElement = document.querySelector('.username');
         if (usernameElement && data.username) {
             usernameElement.textContent = data.username;
         }
     })
     .catch(error => {
-        console.error('Erro ao buscar status:', error);
-        // Adicionar tratamento de erro mais visível para debugging
+        console.error('Error fetching status:', error);
+        // Add more visible error handling for debugging
         const statusElement = document.querySelector('.status-debugging');
         if (statusElement) {
-            statusElement.textContent = 'Erro ao conectar: ' + error.message;
+            statusElement.textContent = 'Error connecting: ' + error.message;
             statusElement.style.color = 'red';
         }
     });
 }
 
-// Determinar qual usuário monitorar com base na página
-function determinarUsuarioPagina() {
-    // Você pode usar diferentes métodos para determinar qual usuário exibir
-    // Por exemplo, baseado na URL ou em algum elemento na página
+// Determine which user to monitor based on the page
+function determineUserPage() {
+    // You can use different methods to determine which user to display
+    // For example, based on the URL or some element on the page
     
-    // Exemplo: verificar se estamos na página específica do seu perfil
+    // Example: check if we're on the specific profile page
     const currentPath = window.location.pathname;
     if (currentPath.includes('meuperfil') || currentPath.includes('perfil2')) {
-        // Seu ID de usuário
+        // Your user ID
         return '682694935631233203';
     }
     
-    // Por padrão, retornar o ID da Bia
+    // By default, return Stillly's ID
     return '1224512361793327117';
 }
 
-// Chamar a função imediatamente ao carregar com o ID correto
-const userId = determinarUsuarioPagina();
-atualizarPerfilDiscord(userId);
+// Call the function immediately when loading with the correct ID
+const userId = determineUserPage();
+updateDiscordProfile(userId);
 
-// Chamar a função periodicamente para manter atualizado
-setInterval(() => atualizarPerfilDiscord(userId), 5000); // 5sec
+// Call the function periodically to keep it updated
+setInterval(() => updateDiscordProfile(userId), 5000); // 5 seconds

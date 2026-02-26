@@ -1,29 +1,29 @@
-        // Texto que será exibido no <title>
+        // Text that will be displayed in <title>
         const titleText = "@stillly";
         let index = 0;
 
-        // Função para animar o título
+        // Function to animate the title
         function typeTitle() {
             if (index < titleText.length) {
-                // Atualiza o <title> com uma letra adicional
+                // Updates the <title> with one more letter
                 document.title += titleText[index];
                 index++;
-                // Define um intervalo para a próxima letra
-                setTimeout(typeTitle, 300); // Ajuste o tempo (em milissegundos) para controlar a velocidade
+                // Set an interval for the next letter
+                setTimeout(typeTitle, 300); // Adjust time (in milliseconds) to control speed
             } else {
-                // Reinicia a animação após um pequeno delay
+                // Restart animation after a short delay
                 setTimeout(() => {
-                    document.title = ""; // Limpa o título
-                    index = 0; // Reinicia o índice
-                    typeTitle(); // Começa novamente
-                }, 2000); // Espera 2 segundos antes de reiniciar
+                    document.title = ""; // Clear title
+                    index = 0; // Reset index
+                    typeTitle(); // Start again
+                }, 2000); // Wait 2 seconds before restarting
             }
         }
 
-        // Inicia a animação quando a página carrega
+        // Start animation when page loads
         typeTitle();
 
-        // CSS adicional que deve ser adicionado ao seu arquivo CSS
+        // Additional CSS that should be added to your CSS file
 const additionalCSS = `
 .timeline {
     position: relative;
@@ -94,16 +94,16 @@ const additionalCSS = `
 }
 `;
 
-// Função para adicionar o CSS
+// Function to add CSS
 function addTimelineStyles() {
     const styleElement = document.createElement('style');
     styleElement.textContent = additionalCSS;
     document.head.appendChild(styleElement);
 }
 
-// Função principal para inicializar a timeline interativa
+// Main function to initialize interactive timeline
 function initializeInteractiveTimeline() {
-    // Adicionar estilos
+    // Add styles
     addTimelineStyles();
     
     const timeline = document.querySelector('.timeline');
@@ -113,28 +113,28 @@ function initializeInteractiveTimeline() {
     const totalTimeSpan = document.querySelector('.total-time');
     
     if (!timeline || !timelineProgress || !audioPlayer) {
-        console.error('Elementos da timeline não encontrados');
+        console.error('Timeline elements not found');
         return;
     }
     
-    // Criar a bolinha (thumb)
+    // Create the dot (thumb)
     const thumb = document.createElement('div');
     thumb.className = 'timeline-thumb';
     timelineProgress.appendChild(thumb);
     
-    // Variáveis de controle
+    // Control variables
     let isDragging = false;
     let hasInteracted = false;
     let animationFrame = null;
     
-    // Função para formatar tempo
+    // Function to format time
     function formatTime(seconds) {
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     }
     
-    // Função para atualizar a posição da timeline
+    // Function to update timeline position
     function updateTimeline() {
         if (!isDragging && audioPlayer.duration) {
             const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
@@ -147,16 +147,16 @@ function initializeInteractiveTimeline() {
         }
     }
     
-    // Função para calcular posição baseada no mouse
+    // Function to calculate position based on mouse
     function getPositionFromEvent(e) {
         const rect = timeline.getBoundingClientRect();
         const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
         let position = (clientX - rect.left) / rect.width;
-        position = Math.max(0, Math.min(1, position)); // Clamp entre 0 e 1
+        position = Math.max(0, Math.min(1, position)); // Clamp between 0 and 1
         return position;
     }
     
-    // Função para definir o tempo do áudio
+    // Function to set audio time
     function setAudioTime(position) {
         if (audioPlayer.duration) {
             const newTime = position * audioPlayer.duration;
@@ -166,20 +166,20 @@ function initializeInteractiveTimeline() {
         }
     }
     
-    // Event listeners para hover
+    // Event listeners for hover
     timeline.addEventListener('mouseenter', () => {
         if (!hasInteracted) {
             thumb.classList.add('pop-in');
             hasInteracted = true;
             
-            // Remover a classe após a animação
+            // Remove class after animation
             setTimeout(() => {
                 thumb.classList.remove('pop-in');
             }, 400);
         }
     });
     
-    // Event listeners para clique na timeline
+    // Event listeners for timeline click
     timeline.addEventListener('click', (e) => {
         if (!isDragging) {
             const position = getPositionFromEvent(e);
@@ -187,16 +187,16 @@ function initializeInteractiveTimeline() {
         }
     });
     
-    // Event listeners para drag
+    // Event listeners for drag
     function startDrag(e) {
         isDragging = true;
         thumb.classList.add('dragging');
         document.body.style.userSelect = 'none';
         
-        // Prevenir comportamento padrão
+        // Prevent default behavior
         e.preventDefault();
         
-        // Definir posição inicial
+        // Set initial position
         const position = getPositionFromEvent(e);
         setAudioTime(position);
     }
@@ -216,7 +216,7 @@ function initializeInteractiveTimeline() {
         thumb.classList.remove('dragging');
         document.body.style.userSelect = '';
         
-        // Retomar a atualização automática se o áudio estiver tocando
+        // Resume automatic update if audio is playing
         if (!audioPlayer.paused) {
             animationFrame = requestAnimationFrame(updateTimeline);
         }
@@ -233,7 +233,7 @@ function initializeInteractiveTimeline() {
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', endDrag);
     
-    // Touch events para dispositivos móveis
+    // Touch events for mobile devices
     thumb.addEventListener('touchstart', startDrag, { passive: false });
     timeline.addEventListener('touchstart', (e) => {
         if (e.target === timeline || e.target === timelineProgress) {
@@ -244,7 +244,7 @@ function initializeInteractiveTimeline() {
     document.addEventListener('touchmove', drag, { passive: false });
     document.addEventListener('touchend', endDrag);
     
-    // Event listeners do áudio
+    // Audio event listeners
     audioPlayer.addEventListener('loadedmetadata', () => {
         totalTimeSpan.textContent = formatTime(audioPlayer.duration);
     });
@@ -261,17 +261,17 @@ function initializeInteractiveTimeline() {
         }
     });
     
-    // Cleanup quando a página é fechada
+    // Cleanup when page is closed
     window.addEventListener('beforeunload', () => {
         if (animationFrame) {
             cancelAnimationFrame(animationFrame);
         }
     });
     
-    console.log('Timeline interativa inicializada com sucesso!');
+    console.log('Interactive timeline initialized successfully!');
 }
 
-// Inicializar quando o DOM estiver carregado
+// Initialize when DOM is loaded
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeInteractiveTimeline);
 } else {
