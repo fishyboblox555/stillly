@@ -160,6 +160,15 @@ body {
     color: #ffffff !important;
 }
 
+.container .profileLayout .profileBadges .profileBadge img,
+.container .profileLayout .profileBadges .profileBadge .badgeImg {
+    height: 1.3em;
+    width: 1.3em;
+    object-fit: contain;
+    filter: drop-shadow(0 0 1.5px #ffffff) !important;
+    display: block;
+}
+
 .container .profileLayout .profileBadges .profileBadge::before {
     content: '';
     background-color: black;

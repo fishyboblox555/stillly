@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', function() {
       else if (badge.classList.contains('og')) tooltipText = 'OG';
       else if (badge.classList.contains('sweet')) tooltipText = 'Candy';
       else if (badge.classList.contains('patrick')) tooltipText = 'St. Patrick';
+      else if (badge.classList.contains('owner')) tooltipText = 'Owner';
+      else if (badge.classList.contains('manager')) tooltipText = 'Manager';
+      else if (badge.classList.contains('worldwide')) tooltipText = 'WORLDWIDE';
+      else if (badge.classList.contains('booster')) tooltipText = 'Server Booster';
+      else if (badge.classList.contains('moderator')) tooltipText = 'Moderator';
+      else if (badge.classList.contains('affiliate')) tooltipText = 'Affiliate';
+      else if (badge.classList.contains('admin')) tooltipText = 'Admin';
+      else if (badge.classList.contains('donor')) tooltipText = 'Donor';
       
       tooltip.textContent = tooltipText;
       document.body.appendChild(tooltip);
