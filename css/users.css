@@ -167,6 +167,8 @@ body {
     object-fit: contain;
     filter: drop-shadow(0 0 1.5px #ffffff) !important;
     display: block;
+    /* hide alt text if image fails to load (icons are decorative) */
+    font-size: 0;
 }
 
 .container .profileLayout .profileBadges .profileBadge::before {
