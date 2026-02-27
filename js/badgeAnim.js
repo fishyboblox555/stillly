@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Select all badges
-    const badges = document.querySelectorAll('.profileBadge');
+    // Select only the badge container elements inside the badges wrapper
+    // (some SVGs also used the class name `profileBadge`, so select the
+    // direct children to avoid targeting the SVGs themselves)
+    const badges = document.querySelectorAll('.profileBadges > .profileBadge');
     
     // Before wiring up tooltips make sure there aren't any empty/broken
     // badges sitting in the DOM; if the site is rendered with all possible
