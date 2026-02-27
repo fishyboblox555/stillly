@@ -214,6 +214,18 @@ body {
     display: none;
   }
 
+/* hide any badge element that doesn't actually contain a graphic */
+.container .profileLayout .profileBadges .profileBadge:empty {
+    display: none !important;
+}
+
+/* if an image fails to load we also want to hide its parent element so
+   the placeholder bubble disappears */
+.container .profileLayout .profileBadges .profileBadge img {
+    /* visibility is still needed for spacing, error handler in JS
+       will remove the parent element when the file can't be fetched */
+}
+
 
 
 .container .profileLayout .profileBio {

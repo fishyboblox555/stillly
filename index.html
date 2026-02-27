@@ -116,6 +116,11 @@ a, button, .linkedAccountsRedirect svg, .popup-button {
             <h1 class="profileUsername" style="color: #ffffff; text-shadow: 0 0 20px #ffffff;">S<span>tillly</span></h1></div>
 
             <div class="elemento-para-animar delay-15">
+            <!-- Only include badge elements for icons you actually have. If an
+                 image fails to load or the element is empty, the script will
+                 remove the placeholder so you won't be left with a "white
+                 bubble".  You can also delete unused <div class="profileBadge">
+                 blocks manually to keep the markup lean. -->
             <div class="profileBadges">
                 <div style="display: flex;" class="profileBadge dev">
                     <svg class="profileBadge" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -281,7 +286,8 @@ a, button, .linkedAccountsRedirect svg, .popup-button {
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
             <circle cx="12" cy="12" r="3"></circle>
         </svg>
-        <span style="font-weight:400;font-size:17px">73,582</span>
+        <!-- viewsCount ID used by script; initial value set to 103,576 per request -->
+        <span id="viewsCount" style="font-weight:400;font-size:17px">103,576</span>
     </div>
     
     <!-- Separador -->
@@ -530,6 +536,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // Backup: try again after 1 second
     setTimeout(tryPlayRainAudio, 1000);
 });
+  </script>
+
+  <!-- increment a persisted views count; initial value set to 103576 per request -->
+  <script>
+    (function(){
+      const span = document.getElementById('viewsCount');
+      if (!span) return;
+      // persistence key, using localStorage so each browser tracks its own visits
+      const key = 'stilllyViews';
+      // start at 103576 if not yet initialized
+      let current = parseInt(localStorage.getItem(key) || '103576', 10);
+      function fmt(n){return n.toLocaleString();}
+      span.textContent = fmt(current);
+      // increment for next visit
+      current += 1;
+      localStorage.setItem(key, current);
+    })();
   </script>
 </body>
 

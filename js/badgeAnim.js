@@ -2,7 +2,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Select all badges
     const badges = document.querySelectorAll('.profileBadge');
     
-    // For each badge, add mouse events
+    // Before wiring up tooltips make sure there aren't any empty/broken
+    // badges sitting in the DOM; if the site is rendered with all possible
+    // badges then the user will see a blank "bubble" when an icon is missing
+    // or the badge isn't actually earned.  We'll check for an <svg> or <img>
+    // and install an error handler on images so they disappear if they fail to
+    // load.
+    badges.forEach(badge => {
+      const img = badge.querySelector('img');
+      const hasGraphic = !!badge.querySelector('svg, img');
+      if (!hasGraphic) {
+        badge.remove(); // no icon at all
+        return;
+      }
+      if (img) {
+        img.addEventListener('error', () => {
+          badge.remove();
+        });
+      }
+    });
+
+    // For each remaining badge, add mouse events
     badges.forEach(badge => {
       // Create a custom tooltip element
       const tooltip = document.createElement('div');
