@@ -219,6 +219,14 @@ body {
     display: none !important;
 }
 
+/* Fallback rule: hide any badge that does not contain an <svg> or <img>.
+   Uses the :has selector where supported; it's a safety-net for browsers
+   that support it so stray placeholder elements won't produce visual
+   bubbles. */
+.container .profileLayout .profileBadges .profileBadge:not(:has(svg, img)) {
+    display: none !important;
+}
+
 /* if an image fails to load we also want to hide its parent element so
    the placeholder bubble disappears */
 .container .profileLayout .profileBadges .profileBadge img {

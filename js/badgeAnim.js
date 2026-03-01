@@ -1,28 +1,44 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Select only the badge container elements inside the badges wrapper
-    // (some SVGs also used the class name `profileBadge`, so select the
-    // direct children to avoid targeting the SVGs themselves)
-    const badges = document.querySelectorAll('.profileBadges > .profileBadge');
-    
-    // Before wiring up tooltips make sure there aren't any empty/broken
-    // badges sitting in the DOM; if the site is rendered with all possible
-    // badges then the user will see a blank "bubble" when an icon is missing
-    // or the badge isn't actually earned.  We'll check for an <svg> or <img>
-    // and install an error handler on images so they disappear if they fail to
-    // load.
+    // (some SVGs also use the class name `profileBadge` on the <svg>, so
+    // choose the direct children to avoid targeting those SVGs themselves)
+    let badges = Array.from(document.querySelectorAll('.profileBadges > .profileBadge'));
+
+    // Remove any badge that doesn't contain a usable graphic. We check for
+    // an <img> or <svg>, and additionally verify the graphic has a
+    // non-zero bounding box (some svgs may be present but effectively
+    // invisible / empty). Also attach an error handler to images so they
+    // are removed if they fail to load.
     badges.forEach(badge => {
       const img = badge.querySelector('img');
-      const hasGraphic = !!badge.querySelector('svg, img');
+      const svg = badge.querySelector('svg');
+      const hasGraphic = !!(img || svg);
       if (!hasGraphic) {
         badge.remove(); // no icon at all
         return;
       }
+
       if (img) {
         img.addEventListener('error', () => {
-          badge.remove();
+          // remove parent badge if image cannot load
+          if (badge && badge.parentNode) badge.parentNode.removeChild(badge);
         });
       }
+
+      if (svg) {
+        // If the SVG has no rendered size, remove the badge as it's
+        // effectively an empty placeholder.
+        const rect = svg.getBoundingClientRect();
+        if (rect.width === 0 && rect.height === 0) {
+          if (badge && badge.parentNode) badge.parentNode.removeChild(badge);
+          return;
+        }
+      }
     });
+
+    // Requery the remaining badges (because we removed some above) so the
+    // rest of the logic operates on the current DOM.
+    badges = Array.from(document.querySelectorAll('.profileBadges > .profileBadge'));
 
     // For each remaining badge, add mouse events
     badges.forEach(badge => {
