@@ -234,6 +234,14 @@ body {
        will remove the parent element when the file can't be fetched */
 }
 
+/* Hide the entire badges wrapper when it contains no rendered badges.
+   Use :has where supported as a safety-net; otherwise JS will hide the
+   wrapper at runtime. */
+.container .profileLayout .profileBadges:empty,
+.container .profileLayout .profileBadges:not(:has(.profileBadge, svg, img)) {
+    display: none !important;
+}
+
 
 
 .container .profileLayout .profileBio {

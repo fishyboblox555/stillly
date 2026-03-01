@@ -40,6 +40,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // rest of the logic operates on the current DOM.
     badges = Array.from(document.querySelectorAll('.profileBadges > .profileBadge'));
 
+    // If there are no badges left, hide the wrapper to avoid showing an
+    // empty rounded bubble in the UI.
+    const badgesWrapper = document.querySelector('.profileBadges');
+    if ((!badges || badges.length === 0) && badgesWrapper) {
+      badgesWrapper.style.display = 'none';
+      return; // nothing further to do
+    }
+
     // For each remaining badge, add mouse events
     badges.forEach(badge => {
       // Create a custom tooltip element
