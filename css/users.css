@@ -219,13 +219,6 @@ body {
     display: none !important;
 }
 
-/* Fallback rule: hide any badge that does not contain an <svg> or <img>.
-   Uses the :has selector where supported; it's a safety-net for browsers
-   that support it so stray placeholder elements won't produce visual
-   bubbles. */
-.container .profileLayout .profileBadges .profileBadge:not(:has(svg, img)) {
-    display: none !important;
-}
 
 /* if an image fails to load we also want to hide its parent element so
    the placeholder bubble disappears */
@@ -234,13 +227,6 @@ body {
        will remove the parent element when the file can't be fetched */
 }
 
-/* Hide the entire badges wrapper when it contains no rendered badges.
-   Use :has where supported as a safety-net; otherwise JS will hide the
-   wrapper at runtime. */
-.container .profileLayout .profileBadges:empty,
-.container .profileLayout .profileBadges:not(:has(.profileBadge, svg, img)) {
-    display: none !important;
-}
 
 
 

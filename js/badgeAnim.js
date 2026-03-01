@@ -2,42 +2,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Select only the badge container elements inside the badges wrapper
     // (some SVGs also use the class name `profileBadge` on the <svg>, so
     // choose the direct children to avoid targeting those SVGs themselves)
-    let badges = Array.from(document.querySelectorAll('.profileBadges > .profileBadge'));
+    const badges = document.querySelectorAll('.profileBadges > .profileBadge');
 
-    // Remove any badge that doesn't contain a usable graphic. We check for
-    // an <img> or <svg>. Do NOT remove badges based on bounding box size
-    // because SVGs may report size 0 at DOMContentLoaded in some browsers
-    // even though they render correctly. Only remove when the graphic is
-    // truly missing, and attach an error handler to images so they are
-    // removed if they fail to load.
+    // Before wiring up tooltips make sure there aren't any empty/broken
+    // badges sitting in the DOM; if the site is rendered with all possible
+    // badges then the user will see a blank "bubble" when an icon is missing
+    // or the badge isn't actually earned.  We'll check for an <svg> or <img>
+    // and install an error handler on images so they disappear if they fail to
+    // load.
     badges.forEach(badge => {
       const img = badge.querySelector('img');
-      const svg = badge.querySelector('svg');
-      const hasGraphic = !!(img || svg);
+      const hasGraphic = !!badge.querySelector('svg, img');
       if (!hasGraphic) {
         badge.remove(); // no icon at all
         return;
       }
-
       if (img) {
         img.addEventListener('error', () => {
-          // remove parent badge if image cannot load
-          if (badge && badge.parentNode) badge.parentNode.removeChild(badge);
+          badge.remove();
         });
       }
     });
 
-    // Requery the remaining badges (because we removed some above) so the
-    // rest of the logic operates on the current DOM.
-    badges = Array.from(document.querySelectorAll('.profileBadges > .profileBadge'));
-
-    // Ensure the badges wrapper is visible (we removed earlier logic that
-    // hid it). If for some reason it was hidden by CSS, make it render so
-    // badges appear when present.
-    const badgesWrapper = document.querySelector('.profileBadges');
-    if (badgesWrapper) {
-      badgesWrapper.style.display = ''; // revert to stylesheet/default
-    }
 
     // For each remaining badge, add mouse events
     badges.forEach(badge => {
