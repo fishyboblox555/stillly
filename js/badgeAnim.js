@@ -5,10 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let badges = Array.from(document.querySelectorAll('.profileBadges > .profileBadge'));
 
     // Remove any badge that doesn't contain a usable graphic. We check for
-    // an <img> or <svg>, and additionally verify the graphic has a
-    // non-zero bounding box (some svgs may be present but effectively
-    // invisible / empty). Also attach an error handler to images so they
-    // are removed if they fail to load.
+    // an <img> or <svg>. Do NOT remove badges based on bounding box size
+    // because SVGs may report size 0 at DOMContentLoaded in some browsers
+    // even though they render correctly. Only remove when the graphic is
+    // truly missing, and attach an error handler to images so they are
+    // removed if they fail to load.
     badges.forEach(badge => {
       const img = badge.querySelector('img');
       const svg = badge.querySelector('svg');
@@ -24,28 +25,18 @@ document.addEventListener('DOMContentLoaded', function() {
           if (badge && badge.parentNode) badge.parentNode.removeChild(badge);
         });
       }
-
-      if (svg) {
-        // If the SVG has no rendered size, remove the badge as it's
-        // effectively an empty placeholder.
-        const rect = svg.getBoundingClientRect();
-        if (rect.width === 0 && rect.height === 0) {
-          if (badge && badge.parentNode) badge.parentNode.removeChild(badge);
-          return;
-        }
-      }
     });
 
     // Requery the remaining badges (because we removed some above) so the
     // rest of the logic operates on the current DOM.
     badges = Array.from(document.querySelectorAll('.profileBadges > .profileBadge'));
 
-    // If there are no badges left, hide the wrapper to avoid showing an
-    // empty rounded bubble in the UI.
+    // Ensure the badges wrapper is visible (we removed earlier logic that
+    // hid it). If for some reason it was hidden by CSS, make it render so
+    // badges appear when present.
     const badgesWrapper = document.querySelector('.profileBadges');
-    if ((!badges || badges.length === 0) && badgesWrapper) {
-      badgesWrapper.style.display = 'none';
-      return; // nothing further to do
+    if (badgesWrapper) {
+      badgesWrapper.style.display = ''; // revert to stylesheet/default
     }
 
     // For each remaining badge, add mouse events
